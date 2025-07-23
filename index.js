@@ -1,11 +1,17 @@
 const express=require("express");
+const { userRouter } = require("./routes/user");
+const { courseRouter } = require("./routes/course");
+const { adminRouter } = require("./routes/admin");
 const app=express();
 
 
-app.get("/",(req,res)=>{
-    res.send("Welcome to the Course Selling App");
-})
+app.use("/user",userRouter);
+app.use("/course",courseRouter);
+app.use("/admin",adminRouter);
+
+
+
 
 app.listen(3000,()=>{
-    console.log("Server is running on port 3000");
+    console.log("server is running in the port 3000")
 })
