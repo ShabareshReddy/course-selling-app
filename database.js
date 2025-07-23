@@ -2,7 +2,6 @@ const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 const ObjectId=Schema.Types.ObjectId;
 
-const connection=mongoose.connect("mongodb+srv://milkabhau87:NpcHZs8GDNynmmTf@namastenode.e5moccv.mongodb.net/CourseSellingApp")
 
 
 const user=new Schema({
