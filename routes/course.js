@@ -1,6 +1,5 @@
 const express =require("express");
-const Router=express.Router();
-const courseRouter=Router();
+const courseRouter=express.Router();
 
 
 courseRouter.post("/purchase",(req,res)=>{
@@ -8,12 +7,12 @@ courseRouter.post("/purchase",(req,res)=>{
         msg:"Course purchased successfully"
     });
 });
-courseRouter.ger("/List",(req,res)=>{
+courseRouter.get("/List",(req,res)=>{
     res.send({
         msg:"Here is the list of courses"
     });
 });
 
 module.exports={
-    courseRouter:CouurseRouter
+    courseRouter:courseRouter
 }

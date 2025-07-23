@@ -1,33 +1,8 @@
-// const mongoose=require("mongoose");
-// const Schema=mongoose.Schema;
-
-// const user=new Schema({
-//     name: {
-//         type:String,
-//         required:true
-//     },
-//     email:{
-//         type:String,
-//         required:true,
-//         unique:true,
-//         lowercase:true,
-//         trim:true
-//     },
-//     password:{
-//         typr:String,
-//         required:true
-//     }   
-// });
-
-
-// const UserModel=mongoose.model("User",user);
-
-// module.exports={
-//     UserModel: UserModel
-// }
-
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
+const ObjectId=Schema.Types.ObjectId;
+
+const connection=mongoose.connect("mongodb+srv://milkabhau87:NpcHZs8GDNynmmTf@namastenode.e5moccv.mongodb.net/CourseSellingApp")
 
 
 const user=new Schema({
@@ -37,7 +12,7 @@ const user=new Schema({
     },
     email:{
         type:String,
-        requires:true,
+        required:true,
         unique:true,
     },
     password:{
@@ -65,7 +40,38 @@ const admin=new Schema({
     }
 });
 
+const course=new Schema({
+    title:{
+        type:String,
+        required:true,       
+    },
+    description:{
+        type:String,
+        required:true,
+    },
+    price:Number,
+    imageURL:String,
+    creatorId:{
+        type:ObjectId,
+        required:true,
+    }
 
+})
+
+const purchases=new Schema({
+    userId:ObjectId,
+    courseId:ObjectId
+})
 
 const UserModel=mongoose.model("User",user);
 const AdminModel=mongoose.model("Admin",admin);
+const courseModel=mongoose.model("Course",course);
+const purchaseModel=mongoose.model("Purchase",purchases);
+
+
+module.exports={
+    UserModel,
+    AdminModel,
+    courseModel,
+    purchaseModel
+}
