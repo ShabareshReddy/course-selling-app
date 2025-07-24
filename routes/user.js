@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
-const JWT_SECRET="Kajalpapa";
+const { JWT_USER_SECRET } = require("../config");
 
 const userRouter=express.Router();
 const { UserModel }=require("../database");
@@ -40,7 +40,7 @@ userRouter.post("/signin",async(req,res)=>{
     if(isPasswordValid){
         const token=jwt.sign({
             id:user._id
-        },JWT_SECRET)
+        },JWT_USER_SECRET)
         return res.json({
             msg:"Succesfully signed In",
             token:token,

@@ -1,9 +1,9 @@
 const jwt=require("jsonwebtoken");
-const JWT_SECRET  ="Kajalpapa";
+const { JWT_USER_SECRET } = require("../config");
 
-const auth=async(req,res,next)=>{
+const userauth=async(req,res,next)=>{
     const token=req.headers.token;
-    const decoded=await jwt.verify(token,JWT_SECRET);
+    const decoded=await jwt.verify(token,JWT_USER_SECRET);
     if(decoded){
         req.userId=decoded.id;
         next();
@@ -15,5 +15,5 @@ const auth=async(req,res,next)=>{
 }
 
 module.exports={
-    auth:auth
+    userauth:userauth
 }
