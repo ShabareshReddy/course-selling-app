@@ -10,6 +10,7 @@ const adminRouter=express.Router();
 
 const { AdminModel }=require("../database");
 const { CourseModel} =require("../database");
+const course = require("./course");
 
 
 adminRouter.post("/signup",async(req,res)=>{
@@ -54,7 +55,7 @@ adminRouter.post("/signin",async(req,res)=>{
 adminRouter.post("/create-course",adminauth,async(req,res)=>{
     const adminId=req.userid;
     const { title,description,price,imageUrl}=req.body;
-    await CourseModel.create({
+   const course= await CourseModel.create({
         title: title,
         description: description,
         price: price,
@@ -62,18 +63,36 @@ adminRouter.post("/create-course",adminauth,async(req,res)=>{
         creatorId:adminId
     })
     res.send({
-        msg:"Course created successfully"
+        msg:"Course created successfully",
+        courseId:course._id
     });
 });
 
-adminRouter.put("/update-course",(req,res)=>{
-    res.send({
-        msg:"course updated successfully"
+adminRouter.put("/update-course",adminauth,async(req,res)=>{
+    const adminId=req.userid;
+    const { title, description, price, imageUrl,courseId} = req.body;
+    const course=await CourseModel.updateOne({
+        _id:courseId,
+        creatorId:adminId
+    },{
+        title:title,
+        description:description,
+        price:price,
+        imageUrl:imageUrl,
     });
-});
-adminRouter.get("/List-courses",(req,res)=>{
     res.send({
-        msg:"Here is the list of courses created by admin"
+        msg:"Course updated successfully",
+        courseId:course._id
+    })
+});
+adminRouter.get("/List-courses",adminauth,async(req,res)=>{
+    const adminId=req.userid;
+    const courses=await CourseModel.find({
+        creatorId:adminId
+    })
+    res.send({
+        msg:"Here is the list of courses created by admin",
+        courses:courses
     });
 });
 
