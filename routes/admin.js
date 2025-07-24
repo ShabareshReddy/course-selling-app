@@ -4,13 +4,13 @@ const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
 const { JWT_ADMIN_SECRET } = require("../config");
 const { adminauth }=require("../middlewares/adminauth");
-
+app.use(express.json());
 
 const adminRouter=express.Router();
 
 const { AdminModel }=require("../database");
 const { CourseModel} =require("../database");
-app.use(express.json());
+
 
 adminRouter.post("/signup",async(req,res)=>{
     const { name, email, password }=req.body;
