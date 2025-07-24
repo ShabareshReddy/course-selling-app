@@ -68,6 +68,7 @@ adminRouter.post("/create-course",adminauth,async(req,res)=>{
     });
 });
 
+
 adminRouter.put("/update-course",adminauth,async(req,res)=>{
     const adminId=req.userid;
     const { title, description, price, imageUrl,courseId} = req.body;
@@ -85,6 +86,8 @@ adminRouter.put("/update-course",adminauth,async(req,res)=>{
         courseId:course._id
     })
 });
+
+
 adminRouter.get("/List-courses",adminauth,async(req,res)=>{
     const adminId=req.userid;
     const courses=await CourseModel.find({
