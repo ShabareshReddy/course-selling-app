@@ -64,13 +64,13 @@ const purchases=new Schema({
 
 const UserModel=mongoose.model("User",user);
 const AdminModel=mongoose.model("Admin",admin);
-const courseModel=mongoose.model("Course",course);
+const CourseModel=mongoose.model("Course",course);
 const purchaseModel=mongoose.model("Purchase",purchases);
 
 
 module.exports={
     UserModel,
     AdminModel,
-    courseModel,
+    CourseModel,
     purchaseModel
 }

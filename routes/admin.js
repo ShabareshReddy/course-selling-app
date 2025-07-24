@@ -1,10 +1,16 @@
 const express=require("express");
+const app=express();
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
 const { JWT_ADMIN_SECRET } = require("../config");
+const { adminauth }=require("../middlewares/adminauth");
+
 
 const adminRouter=express.Router();
-const AdminModel=require("../database");
+
+const { AdminModel }=require("../database");
+const { CourseModel} =require("../database");
+app.use(express.json());
 
 adminRouter.post("/signup",async(req,res)=>{
     const { name, email, password }=req.body;
@@ -45,7 +51,16 @@ adminRouter.post("/signin",async(req,res)=>{
 });
 
 
-adminRouter.post("/create-course",(req,res)=>{
+adminRouter.post("/create-course",adminauth,async(req,res)=>{
+    const adminId=req.userid;
+    const { title,description,price,imageUrl}=req.body;
+    await CourseModel.create({
+        title: title,
+        description: description,
+        price: price,
+        imageUrl: imageUrl,
+        creatorId:adminId
+    })
     res.send({
         msg:"Course created successfully"
     });
